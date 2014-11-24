@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="c3/c3.css" rel="stylesheet" type="text/css">
+	<script src="Chart.js"></script>
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+	<script src="c3/c3.min.js"></script>
+	<style type="text/css">
+		body { width: 40%; font-family: Georgia, "Bitstream Charter", serif; margin: 0 1.0in;}
+		table.curvedEdges { border:8px solid RoyalBlue;-webkit-border-radius:8px;-moz-border-radius:10px;-ms-border-radius:10px;-o-border-radius:10px;border-radius:10px; }
+		table.curvedEdges td, table.curvedEdges th { border-bottom:1px solid black;padding:5px; }
+		input { width:45%; }
+		.myTable { background-color:#f0f0f0;border-collapse:collapse; }
+		.myTable th { background-color:#3030ff;color:white; }
+		.myTable td, .myTable th { padding:1px;border:1px solid #A0A0A0; }
+		h1 {
+			text-align: center;
+		}
+		h2 { color: #328DAE; }
+		sup { 
+			vertical-align: 0.8ex; 
+			font-size:95%; 
+		}
+		sub { 
+			vertical-align: -0.6ex; 
+			font-size:80%; 
+		}
+		var {
+			font-family: sans-serif; font-weight: bold; font-style: normal;
+		}
+		input.bold { font-weight: bold
+		}
+		blockquote { font-size: 75%; }
+		td.upper_line { border-top:solid 1px black; }
+		table.fraction { text-align: center; vertical-align: middle;
+			font-family: sans-serif;
+			font-size: 115%;
+			margin-top:0.5em; margin-bottom:0.5em; line-height: 2em; }
+	</style>
+</head>
+
+<body onload="onLoad()"></body>
+<h1> Population Changes in Sports-Cycling Compared to Everyday-Cycling as an Explanation to Different Rates of Arm and Head Injuries</h1>
+<br/>
+<h2>Introduction</h2>
+<p>This <strong>interactive</strong> web-page is
+a critique of the work found in:
+<br/> <strong>Olivier et. al</strong>, <a href="http://www.unsworks.unsw.edu.au/primo_library/libweb/action/dlDisplay.do?vid=UNSWORKS&docId=unsworks_10700">Long term bicycle related head injury trends for New South Wales, Australia following mandatory helmet legislation</a><br/>
+</p>
+<blockquote>
+Since the 1991 enactment of mandatory helmet legislation (MHL) for cyclists in New South Wales (NSW),
+Australia, there has been extensive debate as to its effect on head injury rates at a population level. Many
+previous studies have focused on the impact of MHL around the time of enactment, while little has
+been done to examine the ongoing effects. We aimed to extend prior work by investigating long-term
+trends in cyclist head and arm injuries over the period 1991-2010. The counts of cyclists hospitalised
+with head or arm injuries were jointly modelled with log-linear regression. The simultaneous modelling
+of related injury mechanisms <b>avoids the need for actual exposure data</b> and accounts for the effects of
+changes in the cycling environment, cycling behaviour and general safety improvements. Models were
+run separately with population counts, bicycle imports, the average weekday counts of cyclists in Sydney
+CBD and cycling estimates from survey data as proxy exposures. Overall, arm injuries were higher than
+head injuries throughout the study period, consistent with previous post-MHL observations. The trends
+in the two injury groups also significantly diverged, such that the gap between rates increased with
+time. The results suggest that the initial observed benefit of MHL has been maintained over the ensuing
+decades. There is a notable additional safety benefit after 2006 that is associated with an increase in
+cycling infrastructure spending. This implies that the effect of MHL is ongoing and progress in cycling
+safety in NSW has and will continue to benefit from focusing on broader issues such as increasing cycling
+infrastructure:
+</blockquote>
+
+<p>
+Olivier et. al. claim that helmets had a positive effect on head injuries in Australia after the Mandatory Helmet Law <b>(MHL)</b></p>
+
+<p>This re-analysis of their results will show that this is not the case and that in fact the
+whole premise of their work is fundamentally flawed and based on an unsafe assumption; <strong>that is that the rate
+of arm injuries should evolve at the same rate as head injuries over time unless helmets intervene and reduce the latter</strong>.
+</p>
+
+</p>
+At first this concept seems plausible and gives an obvious method for determining the effect of helmets
+without needing to disentangle the many other factors that might affect injury rates. However, there is a
+fundamental problem. This concept only works if <b>all</b> cyclists are partaking in the <b>same</b> type of cycling
+with the same risk factors. In other words,
+over the period studied the assumption is the <i>type</i> of cycling remained the same. This is clearly
+wrong, as it is pretty obvious that different forms of cycling carry different risk factors, and
+one would expect that the types and rates of injuries seen in the following demographics would be different:
+
+<ul>
+<li>Children,</li>
+<li>Fast road-cycling and racers,</li>
+<li>Touring cyclists,</li>
+<li>Mountain-bikers,</li>
+<li>BMX stunt cycling,</li>
+<li>Everyday-cycling</li>
+<li>The proportion of urban to rural cyclists</li>
+</ul>
+
+<p>
+In addition, if the proportion of these demographics changes over time then the rates of arms of injuries vs head injuries would
+also change at different rates. <b>Simply changing these proportions could easily account for the rate differences of head and arm
+injuries seen by Olivier et. al. without any measurable intervention by helmets</b>. This is not such a far fetched idea when one
+considers how cycling has evolved over the past few decades. Road-cycling and mountain biking are now "booming" and becoming ever more popular,
+whereas commuting to work by "everyday" people has stagnated over the last couple of decades. Equally, less and less children are now
+playing and cycling in a street environment. In light of this it would be foolish to look at the overall evolution of arm injuries vs head injuries without
+reference to the changes in these populations.
+</p>
+
+<h2>Theory</h2>
+<p>
+Herein a simple mode is proposed comprising two cycling populations, for brevity they
+will be referred to as, everyday-cyclists, and sport-cyclists. The total number of head injuries is then:
+</p>
+
+<br/>
+<table class="fraction" align="center" cellpadding="0" cellspacing="0">
+	<tr><td>H<sub>T</sub> = P (R<sub>E</sub>H<sub>E</sub> + R<sub>S</sub>H<sub>S</sub>)</td></tr>
+</table>
+where:
+<p align="middle">
+<var>H<sub>T</sub></var> is the total number of head injuries<br/>
+<var>P</var> is the total population<br/>
+<var>R<sub>E</sub></var> is rate of everyday-cyclists<br/>
+<var>R<sub>S</sub></var> is rate of sports-cyclists<br/>
+<var>H<sub>E</sub></var> is rate of head injury for everyday-cyclists<br/>
+<var>H<sub>S</sub></var> is rate of head injury for sports-cyclists<br/>
+</p>
+and the total number of arm injuries is similarly:
+<table class="fraction" align="center" cellpadding="0" cellspacing="0">
+	<tr><td>A<sub>T</sub> = P (R<sub>E</sub>A<sub>E</sub> + R<sub>S</sub>A<sub>S</sub>)</td></tr>
+</table>
+where:
+<p align="middle">
+<var>A<sub>T</sub></var> is the total number of arm injuries<br/>
+<var>A<sub>E</sub></var> is rate of arm injury for everyday-cyclists<br/>
+<var>A<sub>S</sub></var> is rate of arm injury for sports-cyclists<br/>
+</p>
+
+<p>
+It has been widely reported that the MHL caused a catastrophic drop in the number of cyclists.
+However, the pro-helmet camp usually refute these claims, and insist that cycling rates have been on the rise
+in Australia and that helmet compliance is high. For there two conflicting reasons, the model
+then assumes that the sports-cyclists are <b>already helmet wearers</b>, as they are partaking in activities such as mountain
+biking, and are completely unaffected by the MHL throughout the study period. Their population, the sports rate <var>R<sub>S</sub></var>, is evolved linearly
+overtime, <b>increasing</b> constantly between 1990 to 2006.</p>
+
+<p>The population of the everyday-cyclists, <var>R<sub>E</sub></var>, is also modelled as changing linearly over the study period, however, the
+catastrophic one time drop in the rate of everyday-cyclists is applied between the years 1990 and 1991.</p>
+
+<p>For simplicity, the model then assumes that all everyday-cyclists complied with the law and wore helmets after 1990. In addition,
+a constant reduction factor is applied to the everyday-cyclist head injury rate, <var>H<sub>E</sub></var>, to account for the effect of helmets.</p>
+
+<h2>Interactive Model</h2>
+
+<p>NB: Full source code for generating these following graphs is included within this html page and can be easily viewed and downloaded.</p>
+
+</p>NB: Olivier et. el. have usefully tabulated the numbers of injuries in their work. However, for some unknown reason the number of arm and head injuries for the
+year, 1990, were not documented. Unfortunately, the only way to deduce these was to estimate them from their graph. Based on a population of 5,834,000, the
+number of head injuries was estimated as 900 and the arm injuries at 780.</p>
+
+<p>NB: The rates are relative between the groups, so for example:<br/>
+<b>Ratio of Cycling Rate (1990) : </b> &nbsp | &nbsp <var>7</var> &nbsp &nbsp | &nbsp &nbsp <var>2</var> &nbsp |<br/>
+means that for every 7 everyday-cyclists there are 2 sport-cyclists.
+</p>
+<p>The rates are then normalised to match the total number of head and arm injuries in 1990, which was 900 and 780</p>
+
+<p>NB: the percentage increase in cycling rate is relative to the numbers in 1990</p>
+
+<p>There are five presets that closely match the data, all with varying scenarios</p>
+
+<!-- **************************************** -->
+<!-- *************** INPUT ****************** -->
+<!-- **************************************** -->
+
+<table class="myTable" _class="curvedEdges">
+	<tbody>
+		<tr>
+			<th></th>
+			<th>Everyday-Cycling / Sports-Cycling</th>
+		</tr>
+		<tr>
+			<td>Ratio of Cycling Rate (1990)</td>
+			<td><input id="input.edCyclingRate" max="80.0" min="0.0" onchange="refresh()" step="0.1" type="number" value="5.2" />
+			<input id="input.spCyclingRate" max="80.0" min="0.0" onchange="refresh()" step="0.1" type="number" value="1.0" /></td>
+		</tr>
+			<td>Change in Cycling Rate, % per year</td>
+			<td><input id="input.edCyclingRateInc" max="200.0" min="-10.0" onchange="refresh()" step="0.1" type="number" value="-1.0" />
+			<input id="input.spCyclingRateInc" max="200.0" min="-30.0" onchange="refresh()" step="0.1" type="number" value="11.0" /></td>
+		<tr>
+		</tr>
+			<td>Ratio of Head Injuries</td>
+			<td><input id="input.edHeadRate" max="50.0" min="0.0" onchange="refresh()" step="0.1" type="number" value="1.0" />
+			<input id="input.spHeadRate" max="50.0" min="0.0" onchange="refresh()" step="0.1" type="number" value="1.3" /></td>
+		<tr>
+		</tr>
+		<tr>
+			<td>Ratio of Arm Injuries</td>
+			<td><input id="input.edArmRate" max="50.0" min="0.0" onchange="refresh()" step="0.1" type="number" value="1.0" />
+			<input id="input.spArmRate" max="50.0" min="0.0" onchange="refresh()" step="0.1" type="number" value="9.6" /></td>
+		</tr>
+	</tbody>
+	<tbody>
+		<tr><th/><th/><th/></tr>
+		<tr>
+			<td><b>Percentage drop in Everyday-Cycling:</b></td><td> <input class="bold" id="input.edDrop" max="100.0" min="0.0" onchange="refresh()" step="1" type="number" value="45.0" /></td>
+		</tr>
+		<tr><th/><th/></tr>
+		<tr>
+			<td><b>Effectiveness of Helmets:</b></td><td> <input class="bold" id="input.edHelmetEffect" max="100.0" min="0.0" onchange="refresh()" step="1" type="number" value="30.0" /></td>
+		</tr>
+		<tr><th/><th/></tr>
+		<tr>
+			<td>Presets:</td>
+			<td>
+				<button type="button" onclick="SetDefaults(1); refresh(); ">1</button>
+				<button type="button" onclick="SetDefaults(2); refresh(); ">2</button>
+				<button type="button" onclick="SetDefaults(3); refresh(); ">3</button>
+				<button type="button" onclick="SetDefaults(4); refresh(); ">4</button>
+				<button type="button" onclick="SetDefaults(5); refresh(); ">5</button>
+			</td>
+		</tr>
+	</tbody>
+</table>
+
+<!-- **************************************** -->
+<!-- *************** GRAPH ****************** -->
+<!-- **************************************** -->
+<br/>
+<b>Comparison with Olivier et. al. data:</b><br />
+Absolute number of injuries plotted over the period 1990-2010
+<br/>
+
+<canvas height="500" id="canvas1" width="500"></canvas>
+<div align="middle" id="lineLegend"></div>
+<hr>
+<canvas height="350" id="canvas2" width="500"></canvas>
+<div id="lineLegend2"></div>
+
+<br />
+			
+<div id="lineLegend3"></div>
+<canvas height="350" id="canvas3" width="500"></canvas>
+
+<br />
+
+<div id="chart"></div>
+<div id="chart2"></div>
+
+<br />
+<script type="text/javascript">
+
+	// Data. Numbers taken directly from Olivier et. al.
+	// However, the first datum for 1990 is estimated as for some
+	// unknown reason and inconsistent reason, the paper doesnt specify
+	// those the values
+	chart1 = null;
+	chart2 = null;
+	chart3 = null;
+
+	data = [
+		// Year, heads, Arms, population
+		//--------------------------------------
+		[1990, 900, 780, 5834000 ], // Had to estimate this as the paper doesnt specify it
+		//--------------------------------------
+		[1991, 590, 660, 5898731  ],
+		[1992, 648, 760, 5962569  ],
+		[1993, 635, 839, 6004880  ],
+		[1994, 634, 882, 6060190  ],
+		[1995, 667, 964, 6126981  ],
+		[1996, 732, 1114, 6204728 ], 
+		[1997, 745, 1058, 6276961 ], 
+		[1998, 750, 1144, 6339071 ],  
+		[1999, 756, 1115, 6411370 ],  
+		[2000, 828, 1334, 6486213 ],    
+		[2001, 715, 1171, 6575217 ],    
+		[2002, 795, 1241, 6628951 ],    
+		[2003, 806, 1390, 6672577 ],    
+		[2004, 882, 1457, 6707189 ],    
+		[2005, 847, 1583, 6756457 ],    
+		[2006, 1004, 1622, 6816087],    
+		[2007, 878, 1576, 6904942 ],    
+		[2008, 840, 1623, 7014887 ],    
+		[2009, 769, 1619, 7127168 ],    
+		[2010, 706, 1620, 7221536 ], 
+	];
+
+	erassData = [
+		// Year, Cycling numbers found through survey
+		[2001,400800], 
+		[2002,429100], 
+		[2003,404300],
+		[2004,481700], 
+		[2005,474200],
+		[2006,468300],
+		[2007,447400],
+		[2008,539600],
+		[2009,503600],
+		[2010,603500],
+	];
+
+	function SetDefaults(settings) {
+		if (settings==1) {
+			setFloatForId(7.5, "input.edCyclingRate");
+			setFloatForId(1, "input.spCyclingRate");
+			setFloatForId(-1.0, "input.edCyclingRateInc");
+			setFloatForId(12.4, "input.spCyclingRateInc");
+			setFloatForId(1.0, "input.edHeadRate");
+			setFloatForId(1.7, "input.spHeadRate");
+			setFloatForId(1, "input.edArmRate");
+			setFloatForId(8.1, "input.spArmRate");
+			setFloatForId(46, "input.edDrop");
+			setFloatForId(0, "input.edHelmetEffect");
+		}
+
+		if (settings==2) {
+			setFloatForId(7.0, "input.edCyclingRate");
+			setFloatForId(1.0, "input.spCyclingRate");
+			setFloatForId(0.8, "input.edCyclingRateInc");
+			setFloatForId(13.2, "input.spCyclingRateInc");
+			setFloatForId(2.4, "input.edHeadRate");
+			setFloatForId(1.0, "input.spHeadRate");
+			setFloatForId(1.1, "input.edArmRate");
+			setFloatForId(5.6, "input.spArmRate");
+			setFloatForId(38, "input.edDrop");
+			setFloatForId(0, "input.edHelmetEffect");
+		}
+		if (settings==3) {
+			setFloatForId(11.5, "input.edCyclingRate");
+			setFloatForId(1.0, "input.spCyclingRate");
+			setFloatForId(0, "input.edCyclingRateInc");
+			setFloatForId(12.4, "input.spCyclingRateInc");
+			setFloatForId(1.0, "input.edHeadRate");
+			setFloatForId(1.5, "input.spHeadRate");
+			setFloatForId(1.0, "input.edArmRate");
+			setFloatForId(10.3, "input.spArmRate");
+			setFloatForId(40, "input.edDrop");
+			setFloatForId(0, "input.edHelmetEffect");
+		}
+
+		if (settings==4) {
+			setFloatForId(4.1, "input.edCyclingRate");
+			setFloatForId(1.3, "input.spCyclingRate");
+			setFloatForId(-2, "input.edCyclingRateInc");
+			setFloatForId(17.4, "input.spCyclingRateInc");
+			setFloatForId(1.7, "input.edHeadRate");
+			setFloatForId(1.1, "input.spHeadRate");
+			setFloatForId(1, "input.edArmRate");
+			setFloatForId(2.2, "input.spArmRate");
+			setFloatForId(38, "input.edDrop");
+			setFloatForId(12, "input.edHelmetEffect");
+		}
+		if (settings==5) {
+			setFloatForId(40.0, "input.edCyclingRate");
+			setFloatForId(1.0, "input.spCyclingRate");
+			setFloatForId(-1.2, "input.edCyclingRateInc");
+			setFloatForId(54.5, "input.spCyclingRateInc");
+			setFloatForId(1.0, "input.edHeadRate");
+			setFloatForId(1.8, "input.spHeadRate");
+			setFloatForId(1.4, "input.edArmRate");
+			setFloatForId(8.1, "input.spArmRate");
+			setFloatForId(24, "input.edDrop");
+			setFloatForId(20, "input.edHelmetEffect");
+		}
+
+	}
+	  
+	function getFloatFromId(id) {
+		return parseFloat(document.getElementById(id).value);
+	}
+	
+	function setFloatForId(value, id) {
+		document.getElementById(id).value = value;
+	}
+
+	function plotGraphs() {
+		//======================
+		// Add the raw data
+		//======================
+		var year = [];
+		var population = [];
+		var olHeads = [];
+		var olArms = [];
+
+		for (var i=0; i<=20; i++) {
+			var h = data[i][1];
+			var a = data[i][2];
+			var p = data[i][3];
+			year.push(data[i][0]);
+			olHeads.push(h);
+			olArms.push(a);
+			population.push(p);
+		}
+		
+		//======================
+		// Model the injury rate
+		//======================
+		var edCyclingRate = getFloatFromId("input.edCyclingRate");
+		var spCyclingRate = getFloatFromId("input.spCyclingRate");
+		var edCyclingRateInc = getFloatFromId("input.edCyclingRateInc");
+		var spCyclingRateInc = getFloatFromId("input.spCyclingRateInc");
+		var edHeadRate = getFloatFromId("input.edHeadRate");
+		var spHeadRate = getFloatFromId("input.spHeadRate");
+		var edArmRate = getFloatFromId("input.edArmRate");
+		var spArmRate = getFloatFromId("input.spArmRate");
+		var edDrop = getFloatFromId("input.edDrop");
+		var edHelmetEffect = getFloatFromId("input.edHelmetEffect");
+				
+		var nEdCyclists = [];
+		var nSpCyclists = [];
+
+		nEdCyclists[0] = population[0] * edCyclingRate;
+		nSpCyclists[0] = population[0] * spCyclingRate;
+		edCyclingRateInc *= edCyclingRate*0.01;
+		spCyclingRateInc *= spCyclingRate*0.01;
+
+		// Auto calculate the effective rate so that the initial numbers agree
+		// with the initial figures from Olivier et. al
+		var k = data[0][1]/(nEdCyclists*edHeadRate + nSpCyclists*spHeadRate);
+		edHeadRate *= k
+		spHeadRate *= k
+		var k = data[0][2]/(nEdCyclists*edArmRate + nSpCyclists*spArmRate);
+		edArmRate *= k
+		spArmRate *= k
+
+		var modelHeads = [];
+		var modelArms = [];
+		for (var y=1990; y<=2006; y++) {
+			var i = y - 1990;
+			h = (y==1990) ? 1 : (1-edHelmetEffect*0.01); // from 1991 onwards apply a helmet effect reduction to everyday head injuries
+			nEdCyclists[i] = population[i] * edCyclingRate;
+			nSpCyclists[i] = population[i] * spCyclingRate;
+			modelHeads.push((nEdCyclists[i]*edHeadRate*h + nSpCyclists[i]*spHeadRate));
+			modelArms.push((nEdCyclists[i]*edArmRate + nSpCyclists[i]*spArmRate));
+			if (y==1990) {
+				edCyclingRate*= (1.0-0.01*edDrop); // one-time catastrophic reduction in everyday-cyclists
+				spCyclingRate += spCyclingRateInc;
+			} else {
+				edCyclingRate += edCyclingRateInc;
+				spCyclingRate += spCyclingRateInc;
+
+				if (edCyclingRate<0.0)
+					edCyclingRate=0.0;
+				if (spCyclingRate<0.0)
+					spCyclingRate=0.0;
+			}
+		}
+
+		var options = {};
+		options.animation = false;
+		options.bezierCurve = false;
+		options.pointDot = true;
+		options.scaleShowLabels = true;
+		options.datasetFill = false;
+		options.showTooltips = false;
+
+		// Chart 1 - Arm vs Head Injuries
+		if (chart1==null) {
+			// First time - create the chart
+			var lineChartData = {
+				labels : year, datasets : [
+				{
+					label: "Head Injuries",
+					strokeColor : "rgba(150,150,150,1)",
+					pointColor : "rgba(150,150,150,1)",
+					pointStrokeColor : "#555",
+					data : olHeads,
+				},
+				{
+					label: "Arm Injuries",
+					strokeColor : "rgba(220,220,220,1)",
+					pointColor : "rgba(220,220,220,1)",
+					pointStrokeColor : "#000",
+					data : olArms,
+				},
+				{
+					label: "Head Injuries",
+					strokeColor : "rgba(220,0,0,1)",
+					pointColor : "rgba(220,0,0,1)",
+					pointStrokeColor : "#000",
+					data : modelHeads,
+				},
+				{
+					label: "Arm Injuries",
+					strokeColor : "rgba(0,220,0,1)",
+					pointColor : "rgba(0,220,0,1)",
+					pointStrokeColor : "#000",
+					data : modelArms,
+				},
+				]
+			}
+		
+			chart1 = new Chart(document.getElementById("canvas1").getContext("2d")).Line(lineChartData, options);
+			legend(document.getElementById("lineLegend"), lineChartData);
+		 } else {
+			// Update the chart
+			for (i=0; i<=16; i++) {
+				chart1.datasets[2].points[i].value = modelHeads[i];
+				chart1.datasets[3].points[i].value = modelArms[i];
+			}
+			chart1.update();
+		}
+		
+		// ERASS estimates in 2005 there were 474,200 cyclists
+		// Normalise based on that
+		var totalCyclists = [];
+		var erassCount = [];
+
+		k = 474200/(nEdCyclists[2005-1990] + nSpCyclists[2005-1990]);
+		for (y=1990; y<=2010; y++) {
+			var i = y - 1990;
+			if (y<2001) {
+				erassCount[i] = null;
+			} else {
+				erassCount[i] = erassData[y-2001][1];
+			}
+			if (y<=2006) {
+				nEdCyclists[i] *= k;
+				nSpCyclists[i] *= k;
+				totalCyclists[i] = nEdCyclists[i] + nSpCyclists[i];
+			} else {
+				nEdCyclists[i] = null;
+				nSpCyclists[i] = null;
+				totalCyclists[i] = null;
+			}
+		}
+
+		// Chart 2 - Percentage change in cycling amounts
+		if (chart2==null) {
+			// First time - create the chart
+			var lineChartData = {
+				labels : year, datasets : [
+				{
+					label: "Everyday Cyclists",
+					strokeColor : "rgba(100,100,100,1)",
+					pointColor : "rgba(100,100,100,1)",
+					pointStrokeColor : "#555",
+					data : nEdCyclists,
+				},
+				{
+					label: "Sports Cyclists",
+					strokeColor : "rgba(220,220,220,1)",
+					pointColor : "rgba(220,220,220,1)",
+					pointStrokeColor : "#000",
+					data : nSpCyclists,
+				},
+				{
+					label: "Total Cyclists",
+					strokeColor : "rgba(0,0,220,1)",
+					pointColor : "rgba(0,0,220,1)",
+					pointStrokeColor : "#000",
+					data : totalCyclists,
+				},
+				{
+					label: "ERASS Count",
+					strokeColor : "rgba(220,0,0,1)",
+					pointColor : "rgba(220,0,0,1)",
+					pointStrokeColor : "#000",
+					data : erassCount,
+				},
+				]
+			}
+		
+			chart2 = new Chart(document.getElementById("canvas2").getContext("2d")).Line(lineChartData, options);
+			legend(document.getElementById("lineLegend2"), lineChartData);
+		} else {
+			// Update the chart
+			for (i=0; i<=16; i++) {
+				//chart2.datasets[2].points[i].value = modelHeads[i];
+				//chart2.datasets[3].points[i].value = modelArms[i];
+			}
+			chart2.update();
+		}
+	}
+
+	function legend(parent, data) {
+		parent.className = 'legend';
+		var datas = data.hasOwnProperty('datasets') ? data.datasets : data;
+
+		// remove possible children of the parent
+		while(parent.hasChildNodes()) {
+			parent.removeChild(parent.lastChild);
+		}
+
+		datas.forEach(function(d) {
+				var title = document.createElement('span');
+				title.className = 'title';
+				title.style.borderColor = d.hasOwnProperty('strokeColor') ? d.strokeColor : d.color;
+				title.style.borderStyle = 'solid';
+				parent.appendChild(title);
+
+				var text = document.createTextNode(d.label);
+				title.appendChild(text);
+				});
+	}
+	
+	function addMyText(text, element) {
+		var d = document.createElement("div");
+		d.innerHTML = text;
+		element.appendChild(d);
+	}
+
+	function refresh() {
+		plotGraphs();
+	}
+	
+	function onLoad() {
+		SetDefaults(1);
+		refresh(); 
+	}
+
+ </script>
+
+</html>
