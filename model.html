@@ -562,9 +562,11 @@ Absolute number of injuries plotted over the period 1990-2010
 			legend(document.getElementById("lineLegend2"), lineChartData);
 		} else {
 			// Update the chart
-			for (i=0; i<=16; i++) {
-				//chart2.datasets[2].points[i].value = modelHeads[i];
-				//chart2.datasets[3].points[i].value = modelArms[i];
+			for (y=1990; y<=2006; y++) {
+				var i = y - 1990;
+				chart2.datasets[0].points[i].value = nEdCyclists[i];
+				chart2.datasets[1].points[i].value = nSpCyclists[i];
+				chart2.datasets[2].points[i].value = totalCyclists[i];
 			}
 			chart2.update();
 		}
