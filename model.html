@@ -244,6 +244,11 @@ count data for the year 2005 for comparison purposes.</p>
 <div id="lineLegend2"></div>
 <br/><hr>
 
+<p align="middle"><b>bridge count...</b><br />
+</p>
+<canvas height="350" id="canvas3" width="500"></canvas>
+<br/><hr>
+
 <h2>Discussion</h2>
 <p>The intention of this work was not to predict whether helmets have, or have not been effective
 in mitigating head injuries, but to demonstrate that the data from
@@ -349,6 +354,19 @@ in the reported data.</p>
 		[2008,539600],
 		[2009,503600],
 		[2010,603500],
+	];
+
+	bridgeCountData = [
+		// Year, Cycling numbers found through survey
+		[2002, 1552],
+		[2003, 1693], 
+		[2004, 1870], 
+		[2005, 2251], 
+		[2006, 2622], 
+		[2007, 2958], 
+		[2008, 3121], 
+		[2009, 3915], 
+		[2010, 3974],
 	];
 
 	function SetDefaults(settings) {
@@ -557,6 +575,7 @@ in the reported data.</p>
 		// Normalise based on that
 		var totalCyclists = [];
 		var erassCount = [];
+		var bridgeCount = [];
 
 		k = 474200/(nEdCyclists[2005-1990] + nSpCyclists[2005-1990]);
 		for (y=1990; y<=2010; y++) {
@@ -565,6 +584,11 @@ in the reported data.</p>
 				erassCount[i] = null;
 			} else {
 				erassCount[i] = erassData[y-2001][1];
+			}
+			if (y<2002) {
+				bridgeCount[i] = null;
+			} else {
+				bridgeCount[i] = bridgeCountData[y-2002][1];
 			}
 			if (y<=2006) {
 				nEdCyclists[i] *= k;
@@ -612,9 +636,9 @@ in the reported data.</p>
 				},
 				]
 			}
-		
 			chart2 = new Chart(document.getElementById("canvas2").getContext("2d")).Line(lineChartData, options);
 			legend(document.getElementById("lineLegend2"), lineChartData);
+
 		} else {
 			// Update the chart
 			for (y=1990; y<=2006; y++) {
@@ -624,6 +648,23 @@ in the reported data.</p>
 				chart2.datasets[2].points[i].value = totalCyclists[i];
 			}
 			chart2.update();
+		}
+		
+		if (chart3==null) {
+			// BRIDGE COUNT
+			// First time - create the chart
+			var lineChartData = {
+				labels : year, datasets : [
+				{
+					label: "Bridge Count",
+					strokeColor : "rgba(220,0,0,1)",
+					pointColor : "rgba(220,0,0,1)",
+					pointStrokeColor : "#000",
+					data : bridgeCount,
+				},
+				]
+			}
+			chart3 = new Chart(document.getElementById("canvas3").getContext("2d")).Line(lineChartData, options);
 		}
 	}
 
